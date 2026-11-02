@@ -1,9 +1,11 @@
 # Distributed Task Notification and Worker System: Report
 
 Computer Networks (UE25CS243A), Mini-project 29, PES University
-Team member1 : Diya N Rao SRN: PES2UG25AM086
-Team member2 : Galina Kathleen G SRN: PES2UG25AM093
-Team member3 : Dakshitha Pechetti SRN: PES2UG25AM074
+
+Team:
+- Diya N Rao, PES2UG25AM086
+- Galina Kathleen G, PES2UG25AM093
+- Dakshitha Pechetti, PES2UG25AM074
 
 ## 1. Abstract
 
@@ -71,7 +73,7 @@ Files: server/server.py, worker/worker.py, controller/task_controller.py, topolo
 | 5 | Worker failure | Kill w2 after 3 s | All tasks still finish | 14.61 s, w2 did 2 tasks, others did 14 each; task 9 re-queued | WORKER_DOWN sent, BLOCK installed |
 | 6 | Drop rule | dump-flows twice, then h2 pings h3 | Rule present, packets dropped | priority=40000, nw_dst=10.0.0.3, actions=drop; counter 0 to 3; 100% ping loss | Application changed the network |
 | 7 | Slow worker | w3 takes 3 s per task | Load moves to fast workers | 15.02 s, split 13 / 12 / 5 | Pull-based queue balances load |
-| 8 | Static baseline | Same slow worker, tasks split equally in advance | About 30 s | <<< measured seconds >>> | Compare with test 7 |
+| 8 | Static baseline | Same slow worker, tasks split equally in advance | About 30 s | About 30 s (calculated: 10 tasks x 3 s on the slow worker; measurement planned) | Compare with test 7 |
 
 Screenshots:
 
@@ -80,13 +82,13 @@ Screenshots:
 ![Worker gets task over TCP](worker%20gets%20task%20over%20tcp.png)
 ![Normal run](normal%20run.jpeg)
 ![Worker fails](worker%20fails.jpeg)
-![Fail.jpeg: <<< what it shows >>>](Fail.jpeg)
+![Drop rule on switch s1 and blocked ping to h3](Fail.jpeg)
 
 ### Comments
 
 - Load balancing needs no scheduler. Workers ask for the next task only when free, so a slow worker gets fewer tasks.
 - The failure test shows no task is lost: the dead worker's task goes back in the queue.
-- The static baseline shows how much the pull-based design gains: <<< one sentence with the two numbers >>>.
+- The static baseline shows how much the pull-based design gains: with the slow worker, an equal split is expected to take about 30 s (the slow worker must do 10 tasks of 3 s each), while our pull-based design finished in 15.02 s, about half the time.
 
 ## 6. Limitations and future work
 
