@@ -83,6 +83,7 @@ Screenshots:
 ![Normal run](normal%20run.jpeg)
 ![Worker fails](worker%20fails.jpeg)
 ![Drop rule on switch s1 and blocked ping to h3](Fail.jpeg)
+![Static baseline run](baseline.png)
 
 
 ### Comments
